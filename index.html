@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumpleaños 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 80%;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      background-color: #ff6f91;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff3e6c;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="loginBox">
+    <h1>✨ Acceso Especial ✨</h1>
+    <p>Ingresa la palabra secreta para continuar</p>
+    <input type="password" id="password" placeholder="Escribe aquí...">
+    <br>
+    <button onclick="checkPassword()">Entrar</button>
+    <p id="error" style="color: #ffcccc; display:none;">Palabra incorrecta 💔</p>
+  </div>
+
+  <div class="container hidden" id="contentBox">
+    <h1>🎉 ¡Feliz Cumpleaños! 🎉</h1>
+    <p>Este pequeño espacio es solo para ti.</p>
+    <p>Eres una persona increíble, llena de luz y magia ✨</p>
+    <p>Gracias por existir y hacer el mundo más bonito 💖</p>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const correctPassword = "Anima affine";
+
+      if (input === correctPassword) {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("contentBox").classList.remove("hidden");
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
