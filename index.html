@@ -19,43 +19,42 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+padding:10px;
 }
 
-/* containers */
+/* contenedor optimizado para celular */
 
 .container{
 background:rgba(0,0,0,0.55);
-padding:25px;
+padding:20px;
 border-radius:18px;
 color:white;
-width:520px;
+width:100%;
+max-width:380px;
 text-align:center;
 }
 
-.hidden{display:none}
-
-/* botones */
+/* inputs y botones grandes para dedo */
 
 button{
-padding:10px 16px;
+padding:14px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 background:#ff6f91;
 color:white;
 cursor:pointer;
-margin:6px;
-font-size:15px;
+margin:8px;
+font-size:16px;
+width:100%;
 }
 
-button:hover{background:#ff3e6c}
-
 input{
-padding:10px;
+padding:14px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 margin-top:10px;
-width:250px;
+width:100%;
+font-size:16px;
 }
 
 /* barra */
@@ -461,15 +460,15 @@ let input=document.getElementById("password").value
 
 if(input===correctPassword){
 
-login.classList.add("hidden")
-barra.classList.remove("hidden")
-app.classList.remove("hidden")
+document.getElementById("login").classList.add("hidden")
+document.getElementById("barra").classList.remove("hidden")
+document.getElementById("app").classList.remove("hidden")
 
 }else{
 
 intentos--
 
-error.innerText="Incorrecto. Intentos restantes: "+intentos
+document.getElementById("error").innerText="Incorrecto. Intentos restantes: "+intentos
 
 if(intentos<=0){
 location.reload()
