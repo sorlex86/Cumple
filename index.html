@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holis</title>
+
+<title>Sorpresa</title>
 
 <style>
 
+*{box-sizing:border-box}
+
 body{
 margin:0;
-font-family:Segoe UI;
+font-family:Segoe UI,sans-serif;
 background:linear-gradient(135deg,#aa88ec,#c2b2e3);
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+padding:20px;
 }
 
+/* containers */
+
 .container{
-background:rgba(0,0,0,0.5);
-padding:30px;
-border-radius:20px;
+background:rgba(0,0,0,0.55);
+padding:25px;
+border-radius:18px;
 color:white;
-width:90%;
+width:100%;
 max-width:500px;
 text-align:center;
 }
 
-.hidden{
-display:none;
-}
+.hidden{display:none}
+
+/* botones */
 
 button{
-padding:10px 20px;
-border-radius:10px;
+padding:10px 16px;
 border:none;
+border-radius:10px;
 background:#ff6f91;
 color:white;
-margin:5px;
 cursor:pointer;
+margin:6px;
+font-size:15px;
 }
 
-button:hover{
-background:#ff3e6c;
-}
+button:hover{background:#ff3e6c}
 
 input{
 padding:10px;
-border-radius:10px;
 border:none;
+border-radius:10px;
 margin-top:10px;
+width:80%;
+max-width:250px;
 }
+
+/* barra */
 
 .topbar{
 position:fixed;
@@ -58,10 +68,12 @@ top:0;
 left:0;
 width:100%;
 background:#ff6f91;
-padding:10px;
 display:flex;
+flex-wrap:wrap;
 justify-content:center;
-gap:15px;
+gap:8px;
+padding:10px;
+z-index:999;
 }
 
 .topbar button{
@@ -70,19 +82,117 @@ color:#ff6f91;
 font-weight:bold;
 }
 
+/* app */
+
 .page{
-margin-top:70px;
+margin-top:80px;
+width:100%;
+display:flex;
+justify-content:center;
+}
+
+/* sobres */
+
+.envelope{
+position:relative;
+width:260px;
+height:180px;
+margin:auto;
+background:#ffedd8;
+border-radius:10px;
+cursor:pointer;
+overflow:hidden;
+}
+
+.tapa{
+position:absolute;
+width:100%;
+height:100%;
+background:#ffcfa8;
+clip-path:polygon(0 0,100% 0,50% 60%);
+transition:.6s;
+transform-origin:top;
+}
+
+.envelope.abierto .tapa{
+transform:rotateX(180deg)
 }
 
 .carta{
+position:absolute;
+bottom:-100%;
+width:100%;
+padding:15px;
 background:#ffedd8;
-padding:20px;
-border-radius:15px;
 color:black;
+transition:.6s;
+}
+
+.envelope.abierto .carta{
+bottom:0
+}
+
+/* tickets */
+
+.ticket{
+
+background:#fff;
+color:#000;
+padding:18px;
+margin:10px auto;
+width:100%;
+max-width:320px;
+border-radius:8px;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+position:relative;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+}
+
+.ticket:before,
+.ticket:after{
+
+content:"";
+position:absolute;
+width:20px;
+height:20px;
+background:#aa88ec;
+border-radius:50%;
+top:50%;
+transform:translateY(-50%);
+
+}
+
+.ticket:before{left:-10px}
+.ticket:after{right:-10px}
+
+.ticket:hover{
+transform:scale(1.03);
+transition:.2s
+}
+
+.ticket.usado{
+
+background:#ccc;
+color:#666;
+text-decoration:line-through;
+cursor:not-allowed;
+
+}
+
+/* logros */
+
+.logros-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(90px,1fr));
+gap:15px;
 }
 
 .logros img{
-width:100px;
+width:100%;
+max-width:80px;
 }
 
 .logros p{
@@ -91,37 +201,122 @@ font-size:10px;
 color:black;
 }
 
+/* regalo */
+
+.gift-box{
+
+position:relative;
+width:150px;
+height:150px;
+margin:30px auto;
+cursor:pointer;
+
+}
+
+.gift-body{
+width:150px;
+height:100px;
+background:#ff6f91;
+position:absolute;
+bottom:0;
+border-radius:6px;
+}
+
+.gift-lid{
+width:150px;
+height:40px;
+background:#ff3e6c;
+position:absolute;
+top:0;
+border-radius:6px;
+transition:.5s;
+}
+
+.gift-box.open .gift-lid{
+transform:translateY(-60px) rotate(-10deg);
+}
+
+.gift-message{
+position:absolute;
+top:-40px;
+left:50%;
+transform:translateX(-50%);
+background:white;
+padding:8px 12px;
+border-radius:6px;
+color:black;
+font-weight:bold;
+}
+
+/* confetti */
+
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+background:red;
+top:-10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh) rotate(720deg);
+opacity:0;
+}
+}
+
 </style>
 </head>
 
 <body>
 
 <!-- INDEX -->
+
 <div class="container" id="index">
-<h1>✨ Holis ✨</h1>
+
+<h2>✨ Holis ✨</h2>
+
 <button onclick="irPregunta()" id="btnPregunta">Pregunta</button>
+
 <button onclick="irInicio()">Inicio</button>
+
 </div>
 
 <!-- PREGUNTA -->
+
 <div class="container hidden" id="pregunta">
-<h2>¿A qué edad nos conocimos?</h2>
+
+<h3>¿A qué edad nos conocimos?</h3>
+
 <input type="number" id="respuesta">
+
 <br>
+
 <button onclick="verificarRespuesta()">Responder</button>
+
 <p id="errorPregunta"></p>
+
 </div>
 
 <!-- LOGIN -->
+
 <div class="container hidden" id="login">
-<h2>Inserta la contraseña</h2>
+
+<h3>Inserta la contraseña</h3>
+
 <input type="password" id="password">
+
 <br>
+
 <button onclick="checkPassword()">Entrar</button>
+
 <p id="error"></p>
+
 </div>
 
 <!-- BARRA -->
+
 <div class="topbar hidden" id="barra">
 
 <button onclick="mostrar('inicioApp')">Inicio</button>
@@ -133,21 +328,26 @@ color:black;
 
 </div>
 
-<!-- CONTENIDO -->
+<!-- APP -->
+
 <div class="page hidden" id="app">
 
-<div id="inicioApp">
-<div class="container">
-<h2>Mensaje</h2>
-<p>Aquí podrás escribir tu mensaje luego</p>
-</div>
+<div>
+
+<!-- MENSAJE -->
+
+<div id="inicioApp" class="container">
+
+<h3>Mensaje</h3>
+<p>Aquí podrás escribir tu mensaje especial.</p>
+
 </div>
 
 <!-- CARTAS -->
 
-<div id="cartas" class="hidden container">
+<div id="cartas" class="container hidden">
 
-<h2>Cartas</h2>
+<h3>Cartas</h3>
 
 <button onclick="abrirCarta('triste')">Triste</button>
 <button onclick="abrirCarta('enojada')">Enojada</button>
@@ -157,13 +357,22 @@ color:black;
 
 </div>
 
-<div id="cartaContenido" class="hidden container carta">
+<div id="cartaContenido" class="container hidden">
 
-<h2 id="tituloCarta"></h2>
+<div class="envelope" onclick="abrirSobre()">
 
-<p>
-Aquí podrás escribir el mensaje que quieras.
-</p>
+<div class="tapa"></div>
+
+<div class="carta">
+
+<h3 id="tituloCarta"></h3>
+<p id="textoCarta"></p>
+
+</div>
+
+</div>
+
+<br>
 
 <button onclick="volverCartas()">Volver</button>
 
@@ -171,70 +380,75 @@ Aquí podrás escribir el mensaje que quieras.
 
 <!-- LOGROS -->
 
-<div id="logros" class="hidden container logros">
+<div id="logros" class="container hidden logros">
 
-<h2>Logros</h2>
+<h3>Logros</h3>
 
-<div>
-<img src="1.png">
-<p>Texto del logro</p>
-</div>
+<div class="logros-grid">
 
-<div>
-<img src="5.png">
-<p>Texto del logro</p>
-</div>
+<div><img src="1.png"><p>Texto logro</p></div>
+<div><img src="5.png"><p>Texto logro</p></div>
+<div><img src="10.png"><p>Texto logro</p></div>
+<div><img src="15.png"><p>Texto logro</p></div>
+<div><img src="20.png"><p>Texto logro</p></div>
 
-<div>
-<img src="10.png">
-<p>Texto del logro</p>
-</div>
-
-<div>
-<img src="15.png">
-<p>Texto del logro</p>
-</div>
-
-<div>
-<img src="20.png">
-<p>Texto del logro</p>
 </div>
 
 </div>
 
 <!-- VALES -->
 
-<div id="vales" class="hidden container">
+<div id="vales" class="container hidden">
 
-<h2>Vales</h2>
+<h3>Vales</h3>
 
-<button onclick="vale('Ir al cine')">Ir al cine</button>
-<button onclick="vale('Ir a comer')">Ir a comer</button>
-<button onclick="vale('Darte un abrazo')">Darte un abrazo</button>
-<button onclick="vale('Chisme todo el día')">Echar chisme todo el día</button>
-<button onclick="vale('Ir por un helado')">Ir por un helado</button>
-<button onclick="vale('Postre hecho por mi')">Postre hecho por mi</button>
+<div class="ticket" onclick="vale(this,'Ir al cine')">🎬 Ir al cine</div>
+<div class="ticket" onclick="vale(this,'Ir a comer')">🍽 Ir a comer</div>
+<div class="ticket" onclick="vale(this,'Darte un abrazo')">🤗 Darte un abrazo</div>
+<div class="ticket" onclick="vale(this,'Chisme todo el día')">☕ Chisme todo el día</div>
+<div class="ticket" onclick="vale(this,'Ir por un helado')">🍦 Ir por un helado</div>
+<div class="ticket" onclick="vale(this,'Postre hecho por mi')">🍰 Postre hecho por mi</div>
 
 </div>
 
-<div id="valePagina" class="hidden container">
+<div id="valePagina" class="container hidden">
 
-<h2 id="valeTitulo"></h2>
+<h3 id="valeTitulo"></h3>
 
-<p>Aquí puedes explicar mejor el vale</p>
+<p>Aquí puedes explicar mejor el vale.</p>
 
 <button onclick="aplicarVale()">Aplicar vale</button>
+
+<br><br>
+
 <button onclick="mostrar('vales')">Volver</button>
 
 </div>
 
 <!-- REGALO -->
 
-<div id="regalo" class="hidden container">
+<div id="regalo" class="container hidden">
 
-<h2>Regalo</h2>
+<h3>Regalo</h3>
 
-<a href="#">Aquí pondrás el enlace</a>
+<div class="gift-box" onclick="abrirRegalo()">
+
+<div class="gift-lid"></div>
+<div class="gift-body"></div>
+
+<div class="gift-message hidden" id="mensajeRegalo">
+
+<a href="#" target="_blank">
+Abrir regalo 🎁
+</a>
+
+</div>
+
+</div>
+
+<p>Toca la caja para abrirla</p>
+
+</div>
 
 </div>
 
@@ -243,8 +457,16 @@ Aquí podrás escribir el mensaje que quieras.
 <script>
 
 let intentos=3
-let preguntaCorrecta=false
 let valeActual=""
+let ticketSeleccionado=null
+
+const cartasTexto={
+triste:"Aquí puedes escribir el mensaje cuando esté triste.",
+enojada:"Aquí puedes escribir el mensaje cuando esté enojada.",
+estresada:"Aquí puedes escribir el mensaje cuando esté estresada.",
+feliz:"Aquí puedes escribir el mensaje cuando esté feliz.",
+gomitas:"Aquí puedes escribir el mensaje de las gomitas para volar."
+}
 
 function irPregunta(){
 index.classList.add("hidden")
@@ -262,7 +484,6 @@ let r=document.getElementById("respuesta").value
 
 if(r==3){
 
-preguntaCorrecta=true
 intentos=5
 
 pregunta.classList.add("hidden")
@@ -308,16 +529,14 @@ location.reload()
 
 function mostrar(id){
 
-document.querySelectorAll("#app > div").forEach(e=>e.classList.add("hidden"))
+document.querySelectorAll("#app > div > div").forEach(e=>e.classList.add("hidden"))
 
 document.getElementById(id).classList.remove("hidden")
 
 }
 
 function salir(){
-
 location.reload()
-
 }
 
 function abrirCarta(tipo){
@@ -326,6 +545,7 @@ cartas.classList.add("hidden")
 cartaContenido.classList.remove("hidden")
 
 tituloCarta.innerText=tipo
+textoCarta.innerText=cartasTexto[tipo]
 
 }
 
@@ -336,8 +556,22 @@ cartas.classList.remove("hidden")
 
 }
 
-function vale(nombre){
+function abrirSobre(){
 
+document.querySelector(".envelope").classList.toggle("abierto")
+
+}
+
+function vale(ticket,nombre){
+
+if(localStorage.getItem(nombre)=="usado"){
+
+alert("Este vale ya fue usado")
+return
+
+}
+
+ticketSeleccionado=ticket
 valeActual=nombre
 
 vales.classList.add("hidden")
@@ -353,7 +587,39 @@ let numero="5215610910911"
 
 let texto="Quiero usar el vale: "+valeActual
 
+localStorage.setItem(valeActual,"usado")
+
+ticketSeleccionado.classList.add("usado")
+
 window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(texto))
+
+}
+
+function abrirRegalo(){
+
+let box=document.querySelector(".gift-box")
+
+box.classList.toggle("open")
+
+document.getElementById("mensajeRegalo").classList.toggle("hidden")
+
+for(let i=0;i<40;i++){
+
+let conf=document.createElement("div")
+
+conf.className="confetti"
+
+conf.style.left=Math.random()*100+"vw"
+
+conf.style.background="hsl("+Math.random()*360+",100%,50%)"
+
+conf.style.animationDuration=(Math.random()*3+2)+"s"
+
+document.body.appendChild(conf)
+
+setTimeout(()=>conf.remove(),5000)
+
+}
 
 }
 
@@ -361,3 +627,4 @@ window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(texto))
 
 </body>
 </html>
+```
