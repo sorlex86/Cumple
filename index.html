@@ -29,8 +29,7 @@ background:rgba(0,0,0,0.55);
 padding:25px;
 border-radius:18px;
 color:white;
-width:100%;
-max-width:520px;
+width:520px;
 text-align:center;
 }
 
@@ -56,8 +55,7 @@ padding:10px;
 border:none;
 border-radius:10px;
 margin-top:10px;
-width:80%;
-max-width:250px;
+width:250px;
 }
 
 /* barra */
@@ -69,7 +67,6 @@ left:0;
 width:100%;
 background:#ff6f91;
 display:flex;
-flex-wrap:wrap;
 justify-content:center;
 gap:8px;
 padding:10px;
@@ -89,29 +86,6 @@ margin-top:90px;
 width:100%;
 display:flex;
 justify-content:center;
-}
-
-/* CARTAS GRID */
-
-#cartas{
-display:grid;
-gap:10px;
-}
-
-@media(min-width:700px){
-
-#cartas{
-grid-template-columns:repeat(2,1fr);
-}
-
-}
-
-@media(max-width:699px){
-
-#cartas{
-grid-template-columns:1fr;
-}
-
 }
 
 /* sobres */
@@ -162,8 +136,7 @@ background:#fff;
 color:#000;
 padding:18px;
 margin:10px auto;
-width:100%;
-max-width:320px;
+width:320px;
 border-radius:8px;
 font-weight:bold;
 font-size:16px;
@@ -199,30 +172,16 @@ text-decoration:line-through;
 cursor:not-allowed;
 }
 
-/* vales grid */
-
-#vales{
-display:grid;
-gap:10px;
-}
-
-@media(min-width:700px){
-#vales{
-grid-template-columns:repeat(2,1fr);
-}
-}
-
 /* logros */
 
 .logros-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(90px,1fr));
+grid-template-columns:repeat(3,1fr);
 gap:15px;
 }
 
 .logros img{
-width:100%;
-max-width:80px;
+width:80px;
 }
 
 .logros p{
@@ -298,8 +257,6 @@ opacity:0;
 
 <body>
 
-<!-- INDEX -->
-
 <div class="container" id="index">
 
 <h2>✨ Holis ✨</h2>
@@ -308,8 +265,6 @@ opacity:0;
 <button onclick="irInicio()">Inicio</button>
 
 </div>
-
-<!-- PREGUNTA -->
 
 <div class="container hidden" id="pregunta">
 
@@ -323,8 +278,6 @@ opacity:0;
 
 </div>
 
-<!-- LOGIN -->
-
 <div class="container hidden" id="login">
 
 <h3>Inserta la contraseña</h3>
@@ -337,8 +290,6 @@ opacity:0;
 
 </div>
 
-<!-- BARRA -->
-
 <div class="topbar hidden" id="barra">
 
 <button onclick="mostrar('inicioApp')">Inicio</button>
@@ -350,14 +301,15 @@ opacity:0;
 
 </div>
 
-<!-- APP -->
-
 <div class="page hidden" id="app">
 <div>
 
 <div id="inicioApp" class="container">
 <h3>Mensaje</h3>
-<p>Aquí podrás escribir tu mensaje especial.</p>
+<p>Holis, esta pagina es solo para y exclusivamente para ti,</p>
+<p>si no tienes cuenta de amazon te recomiedo te hagas una, luego entenderas el porque.</p>
+<p>Espero te guste y lo disfrutes esta hecho con mucho cariño.</p>
+<p>Felicidades y que te la pases muy bien</p>
 </div>
 
 <div id="cartas" class="container hidden">
@@ -390,25 +342,25 @@ opacity:0;
 
 </div>
 
-<!-- LOGROS -->
-
 <div id="logros" class="container hidden logros">
 
 <h3>Logros</h3>
 
 <div class="logros-grid">
 
-<div><img src="1.png"><p>Texto logro</p></div>
-<div><img src="5.png"><p>Texto logro</p></div>
-<div><img src="10.png"><p>Texto logro</p></div>
-<div><img src="15.png"><p>Texto logro</p></div>
-<div><img src="20.png"><p>Texto logro</p></div>
+<div><img src="images/1.png"><p>Felicidades sobreviviste más de un año</p></div>
+<div><img src="images/5.png"><p>Has pasado los 5 años con éxito tú puedes con más</p></div>
+<div><img src="images/10.png"><p>Dios ya son 10, tu primer decada, eso campeona</p></div>
+<div><img src="images/15.png"><p>15 edad díficl pero tú puedes con eso y más</p></div>
+<div><img src="images/20.png"><p>Orale ya son 20, tu segunda decada con vida, TQN</p></div>
+<div><img src="images/Artista.png"><p>Por ser la mejor artista del madito mundo</p></div>
+<div><img src="images/Fuerte.png"><p>Por ser una de las personas más fuertes que conozco</p></div>
+<div><img src="images/Guapa.png"><p>Por ser la más guapa de todo el fucking mundo</p></div>
+<div><img src="images/Inteligente.png"><p>Por ser la persona más inteligente que Einstein</p></div>
 
 </div>
 
 </div>
-
-<!-- VALES -->
 
 <div id="vales" class="container hidden">
 
@@ -436,8 +388,6 @@ opacity:0;
 
 </div>
 
-<!-- REGALO -->
-
 <div id="regalo" class="container hidden">
 
 <h3>Regalo</h3>
@@ -448,7 +398,7 @@ opacity:0;
 <div class="gift-body"></div>
 
 <div class="gift-message hidden" id="mensajeRegalo">
-<a href="#" target="_blank">Abrir regalo 🎁</a>
+<a href="https://www.amazon.com.mx/g/TBLRZZLV5BHPA3?t=SvL" target="_blank">Regalo 🎁</a>
 </div>
 
 </div>
@@ -468,11 +418,11 @@ let ticketSeleccionado=null
 let confettiLanzado=false
 
 const cartasTexto={
-triste:"Aquí puedes escribir el mensaje cuando esté triste.",
-enojada:"Aquí puedes escribir el mensaje cuando esté enojada.",
-estresada:"Aquí puedes escribir el mensaje cuando esté estresada.",
-feliz:"Aquí puedes escribir el mensaje cuando esté feliz.",
-gomitas:"Aquí puedes escribir el mensaje de las gomitas para volar."
+triste:"Si hoy te sientes un poco rota, recuerda que no estás sola. Siempre puedes venir conmigo.",
+enojada:"Tu enojo también es válido, aquí tienes un lugar seguro para sacarlo.",
+estresada:"Si todo se siente demasiado, tómate un momento. No tienes que poder con todo hoy.",
+feliz:"Ojalá este momento feliz dure mucho… y si no, que vuelvan muchos más.",
+gomitas:"Cuando quieras solo ehcame una llamada y te las consigo antes de las 6 de la tarde"
 }
 
 function irPregunta(){
@@ -607,13 +557,11 @@ box.classList.toggle("open")
 mensajeRegalo.classList.toggle("hidden")
 
 if(confettiLanzado) return
-
 confettiLanzado=true
 
 for(let i=0;i<40;i++){
 
 let conf=document.createElement("div")
-
 conf.className="confetti"
 
 conf.style.left=Math.random()*100+"vw"
