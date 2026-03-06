@@ -30,7 +30,7 @@ padding:25px;
 border-radius:18px;
 color:white;
 width:100%;
-max-width:500px;
+max-width:520px;
 text-align:center;
 }
 
@@ -85,10 +85,33 @@ font-weight:bold;
 /* app */
 
 .page{
-margin-top:80px;
+margin-top:90px;
 width:100%;
 display:flex;
 justify-content:center;
+}
+
+/* CARTAS GRID */
+
+#cartas{
+display:grid;
+gap:10px;
+}
+
+@media(min-width:700px){
+
+#cartas{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:699px){
+
+#cartas{
+grid-template-columns:1fr;
+}
+
 }
 
 /* sobres */
@@ -135,7 +158,6 @@ bottom:0
 /* tickets */
 
 .ticket{
-
 background:#fff;
 color:#000;
 padding:18px;
@@ -148,12 +170,10 @@ font-size:16px;
 cursor:pointer;
 position:relative;
 box-shadow:0 4px 10px rgba(0,0,0,0.2);
-
 }
 
 .ticket:before,
 .ticket:after{
-
 content:"";
 position:absolute;
 width:20px;
@@ -162,7 +182,6 @@ background:#aa88ec;
 border-radius:50%;
 top:50%;
 transform:translateY(-50%);
-
 }
 
 .ticket:before{left:-10px}
@@ -174,12 +193,23 @@ transition:.2s
 }
 
 .ticket.usado{
-
 background:#ccc;
 color:#666;
 text-decoration:line-through;
 cursor:not-allowed;
+}
 
+/* vales grid */
+
+#vales{
+display:grid;
+gap:10px;
+}
+
+@media(min-width:700px){
+#vales{
+grid-template-columns:repeat(2,1fr);
+}
 }
 
 /* logros */
@@ -196,7 +226,6 @@ max-width:80px;
 }
 
 .logros p{
-font-family:Arial;
 font-size:10px;
 color:black;
 }
@@ -204,13 +233,11 @@ color:black;
 /* regalo */
 
 .gift-box{
-
 position:relative;
 width:150px;
 height:150px;
 margin:30px auto;
 cursor:pointer;
-
 }
 
 .gift-body{
@@ -278,7 +305,6 @@ opacity:0;
 <h2>✨ Holis ✨</h2>
 
 <button onclick="irPregunta()" id="btnPregunta">Pregunta</button>
-
 <button onclick="irInicio()">Inicio</button>
 
 </div>
@@ -290,9 +316,7 @@ opacity:0;
 <h3>¿A qué edad nos conocimos?</h3>
 
 <input type="number" id="respuesta">
-
 <br>
-
 <button onclick="verificarRespuesta()">Responder</button>
 
 <p id="errorPregunta"></p>
@@ -306,9 +330,7 @@ opacity:0;
 <h3>Inserta la contraseña</h3>
 
 <input type="password" id="password">
-
 <br>
-
 <button onclick="checkPassword()">Entrar</button>
 
 <p id="error"></p>
@@ -331,19 +353,12 @@ opacity:0;
 <!-- APP -->
 
 <div class="page hidden" id="app">
-
 <div>
 
-<!-- MENSAJE -->
-
 <div id="inicioApp" class="container">
-
 <h3>Mensaje</h3>
 <p>Aquí podrás escribir tu mensaje especial.</p>
-
 </div>
-
-<!-- CARTAS -->
 
 <div id="cartas" class="container hidden">
 
@@ -359,21 +374,18 @@ opacity:0;
 
 <div id="cartaContenido" class="container hidden">
 
-<div class="envelope" onclick="abrirSobre()">
+<div class="envelope" id="sobre" onclick="abrirSobre()">
 
 <div class="tapa"></div>
 
 <div class="carta">
-
 <h3 id="tituloCarta"></h3>
 <p id="textoCarta"></p>
-
 </div>
 
 </div>
 
 <br>
-
 <button onclick="volverCartas()">Volver</button>
 
 </div>
@@ -414,7 +426,6 @@ opacity:0;
 <div id="valePagina" class="container hidden">
 
 <h3 id="valeTitulo"></h3>
-
 <p>Aquí puedes explicar mejor el vale.</p>
 
 <button onclick="aplicarVale()">Aplicar vale</button>
@@ -437,11 +448,7 @@ opacity:0;
 <div class="gift-body"></div>
 
 <div class="gift-message hidden" id="mensajeRegalo">
-
-<a href="#" target="_blank">
-Abrir regalo 🎁
-</a>
-
+<a href="#" target="_blank">Abrir regalo 🎁</a>
 </div>
 
 </div>
@@ -451,7 +458,6 @@ Abrir regalo 🎁
 </div>
 
 </div>
-
 </div>
 
 <script>
@@ -459,6 +465,7 @@ Abrir regalo 🎁
 let intentos=3
 let valeActual=""
 let ticketSeleccionado=null
+let confettiLanzado=false
 
 const cartasTexto={
 triste:"Aquí puedes escribir el mensaje cuando esté triste.",
@@ -518,9 +525,7 @@ intentos--
 error.innerText="Incorrecto. Intentos restantes: "+intentos
 
 if(intentos<=0){
-
 location.reload()
-
 }
 
 }
@@ -530,7 +535,6 @@ location.reload()
 function mostrar(id){
 
 document.querySelectorAll("#app > div > div").forEach(e=>e.classList.add("hidden"))
-
 document.getElementById(id).classList.remove("hidden")
 
 }
@@ -547,6 +551,8 @@ cartaContenido.classList.remove("hidden")
 tituloCarta.innerText=tipo
 textoCarta.innerText=cartasTexto[tipo]
 
+document.getElementById("sobre").classList.remove("abierto")
+
 }
 
 function volverCartas(){
@@ -558,17 +564,15 @@ cartas.classList.remove("hidden")
 
 function abrirSobre(){
 
-document.querySelector(".envelope").classList.toggle("abierto")
+document.getElementById("sobre").classList.toggle("abierto")
 
 }
 
 function vale(ticket,nombre){
 
 if(localStorage.getItem(nombre)=="usado"){
-
 alert("Este vale ya fue usado")
 return
-
 }
 
 ticketSeleccionado=ticket
@@ -600,8 +604,11 @@ function abrirRegalo(){
 let box=document.querySelector(".gift-box")
 
 box.classList.toggle("open")
+mensajeRegalo.classList.toggle("hidden")
 
-document.getElementById("mensajeRegalo").classList.toggle("hidden")
+if(confettiLanzado) return
+
+confettiLanzado=true
 
 for(let i=0;i<40;i++){
 
@@ -610,9 +617,7 @@ let conf=document.createElement("div")
 conf.className="confetti"
 
 conf.style.left=Math.random()*100+"vw"
-
 conf.style.background="hsl("+Math.random()*360+",100%,50%)"
-
 conf.style.animationDuration=(Math.random()*3+2)+"s"
 
 document.body.appendChild(conf)
@@ -627,4 +632,3 @@ setTimeout(()=>conf.remove(),5000)
 
 </body>
 </html>
-```
