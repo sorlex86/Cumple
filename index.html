@@ -1,96 +1,363 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feliz Cumpleaños 💖</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      color: #fff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holis</title>
 
-    .container {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      width: 90%;
-      max-width: 400px;
-    }
+<style>
 
-    input {
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      width: 80%;
-      margin-top: 15px;
-      font-size: 16px;
-    }
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#aa88ec,#c2b2e3);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border-radius: 10px;
-      border: none;
-      background-color: #ff6f91;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.container{
+background:rgba(0,0,0,0.5);
+padding:30px;
+border-radius:20px;
+color:white;
+width:90%;
+max-width:500px;
+text-align:center;
+}
 
-    button:hover {
-      background-color: #ff3e6c;
-    }
+.hidden{
+display:none;
+}
 
-    .hidden {
-      display: none;
-    }
+button{
+padding:10px 20px;
+border-radius:10px;
+border:none;
+background:#ff6f91;
+color:white;
+margin:5px;
+cursor:pointer;
+}
 
-    h1 {
-      margin-bottom: 10px;
-    }
-  </style>
+button:hover{
+background:#ff3e6c;
+}
+
+input{
+padding:10px;
+border-radius:10px;
+border:none;
+margin-top:10px;
+}
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:#ff6f91;
+padding:10px;
+display:flex;
+justify-content:center;
+gap:15px;
+}
+
+.topbar button{
+background:white;
+color:#ff6f91;
+font-weight:bold;
+}
+
+.page{
+margin-top:70px;
+}
+
+.carta{
+background:#ffedd8;
+padding:20px;
+border-radius:15px;
+color:black;
+}
+
+.logros img{
+width:100px;
+}
+
+.logros p{
+font-family:Arial;
+font-size:10px;
+color:black;
+}
+
+</style>
 </head>
+
 <body>
 
-  <div class="container" id="loginBox">
-    <h1>✨ Acceso Especial ✨</h1>
-    <p>Ingresa la palabra secreta para continuar</p>
-    <input type="password" id="password" placeholder="Escribe aquí...">
-    <br>
-    <button onclick="checkPassword()">Entrar</button>
-    <p id="error" style="color: #ffcccc; display:none;">Palabra incorrecta 💔</p>
-  </div>
+<!-- INDEX -->
+<div class="container" id="index">
+<h1>✨ Holis ✨</h1>
+<button onclick="irPregunta()" id="btnPregunta">Pregunta</button>
+<button onclick="irInicio()">Inicio</button>
+</div>
 
-  <div class="container hidden" id="contentBox">
-    <h1>🎉 ¡Feliz Cumpleaños! 🎉</h1>
-    <p>Este pequeño espacio es solo para ti.</p>
-    <p>Eres una persona increíble, llena de luz y magia ✨</p>
-    <p>Gracias por no sabemos porque no se actualiza y hacer el mundo más bonito 💖</p>
-  </div>
+<!-- PREGUNTA -->
+<div class="container hidden" id="pregunta">
+<h2>¿A qué edad nos conocimos?</h2>
+<input type="number" id="respuesta">
+<br>
+<button onclick="verificarRespuesta()">Responder</button>
+<p id="errorPregunta"></p>
+</div>
 
-  <script>
-    function checkPassword() {
-      const input = document.getElementById("password").value;
-      const correctPassword = "Anima affine";
+<!-- LOGIN -->
+<div class="container hidden" id="login">
+<h2>Inserta la contraseña</h2>
+<input type="password" id="password">
+<br>
+<button onclick="checkPassword()">Entrar</button>
+<p id="error"></p>
+</div>
 
-      if (input === correctPassword) {
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("contentBox").classList.remove("hidden");
-      } else {
-        document.getElementById("error").style.display = "block";
-      }
-    }
-  </script>
+<!-- BARRA -->
+<div class="topbar hidden" id="barra">
+
+<button onclick="mostrar('inicioApp')">Inicio</button>
+<button onclick="mostrar('cartas')">Cartas</button>
+<button onclick="mostrar('logros')">Logros</button>
+<button onclick="mostrar('vales')">Vales</button>
+<button onclick="mostrar('regalo')">Regalo</button>
+<button onclick="salir()">Salir</button>
+
+</div>
+
+<!-- CONTENIDO -->
+<div class="page hidden" id="app">
+
+<div id="inicioApp">
+<div class="container">
+<h2>Mensaje</h2>
+<p>Aquí podrás escribir tu mensaje luego</p>
+</div>
+</div>
+
+<!-- CARTAS -->
+
+<div id="cartas" class="hidden container">
+
+<h2>Cartas</h2>
+
+<button onclick="abrirCarta('triste')">Triste</button>
+<button onclick="abrirCarta('enojada')">Enojada</button>
+<button onclick="abrirCarta('estresada')">Estresada</button>
+<button onclick="abrirCarta('feliz')">Feliz</button>
+<button onclick="abrirCarta('gomitas')">Si quieres gomitas para volar</button>
+
+</div>
+
+<div id="cartaContenido" class="hidden container carta">
+
+<h2 id="tituloCarta"></h2>
+
+<p>
+Aquí podrás escribir el mensaje que quieras.
+</p>
+
+<button onclick="volverCartas()">Volver</button>
+
+</div>
+
+<!-- LOGROS -->
+
+<div id="logros" class="hidden container logros">
+
+<h2>Logros</h2>
+
+<div>
+<img src="1.png">
+<p>Texto del logro</p>
+</div>
+
+<div>
+<img src="5.png">
+<p>Texto del logro</p>
+</div>
+
+<div>
+<img src="10.png">
+<p>Texto del logro</p>
+</div>
+
+<div>
+<img src="15.png">
+<p>Texto del logro</p>
+</div>
+
+<div>
+<img src="20.png">
+<p>Texto del logro</p>
+</div>
+
+</div>
+
+<!-- VALES -->
+
+<div id="vales" class="hidden container">
+
+<h2>Vales</h2>
+
+<button onclick="vale('Ir al cine')">Ir al cine</button>
+<button onclick="vale('Ir a comer')">Ir a comer</button>
+<button onclick="vale('Darte un abrazo')">Darte un abrazo</button>
+<button onclick="vale('Chisme todo el día')">Echar chisme todo el día</button>
+<button onclick="vale('Ir por un helado')">Ir por un helado</button>
+<button onclick="vale('Postre hecho por mi')">Postre hecho por mi</button>
+
+</div>
+
+<div id="valePagina" class="hidden container">
+
+<h2 id="valeTitulo"></h2>
+
+<p>Aquí puedes explicar mejor el vale</p>
+
+<button onclick="aplicarVale()">Aplicar vale</button>
+<button onclick="mostrar('vales')">Volver</button>
+
+</div>
+
+<!-- REGALO -->
+
+<div id="regalo" class="hidden container">
+
+<h2>Regalo</h2>
+
+<a href="#">Aquí pondrás el enlace</a>
+
+</div>
+
+</div>
+
+<script>
+
+let intentos=3
+let preguntaCorrecta=false
+let valeActual=""
+
+function irPregunta(){
+index.classList.add("hidden")
+pregunta.classList.remove("hidden")
+}
+
+function irInicio(){
+index.classList.add("hidden")
+login.classList.remove("hidden")
+}
+
+function verificarRespuesta(){
+
+let r=document.getElementById("respuesta").value
+
+if(r==3){
+
+preguntaCorrecta=true
+intentos=5
+
+pregunta.classList.add("hidden")
+index.classList.remove("hidden")
+
+btnPregunta.style.display="none"
+
+}else{
+
+errorPregunta.innerText="Respuesta incorrecta"
+
+}
+
+}
+
+function checkPassword(){
+
+const correctPassword="Anima affine"
+
+let input=document.getElementById("password").value
+
+if(input===correctPassword){
+
+login.classList.add("hidden")
+barra.classList.remove("hidden")
+app.classList.remove("hidden")
+
+}else{
+
+intentos--
+
+error.innerText="Incorrecto. Intentos restantes: "+intentos
+
+if(intentos<=0){
+
+location.reload()
+
+}
+
+}
+
+}
+
+function mostrar(id){
+
+document.querySelectorAll("#app > div").forEach(e=>e.classList.add("hidden"))
+
+document.getElementById(id).classList.remove("hidden")
+
+}
+
+function salir(){
+
+location.reload()
+
+}
+
+function abrirCarta(tipo){
+
+cartas.classList.add("hidden")
+cartaContenido.classList.remove("hidden")
+
+tituloCarta.innerText=tipo
+
+}
+
+function volverCartas(){
+
+cartaContenido.classList.add("hidden")
+cartas.classList.remove("hidden")
+
+}
+
+function vale(nombre){
+
+valeActual=nombre
+
+vales.classList.add("hidden")
+valePagina.classList.remove("hidden")
+
+valeTitulo.innerText=nombre
+
+}
+
+function aplicarVale(){
+
+let numero="5215610910911"
+
+let texto="Quiero usar el vale: "+valeActual
+
+window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(texto))
+
+}
+
+</script>
 
 </body>
 </html>
